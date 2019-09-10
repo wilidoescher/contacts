@@ -18,7 +18,7 @@
       <q-icon name="" />
       <q-input
         filled
-        v-model="name"
+        v-model="surname"
         label="Sobrenome"
         hint=""
         lazy-rules
@@ -27,7 +27,7 @@
       <q-icon name="house" />
       <q-input
         filled
-        v-model="name"
+        v-model="company"
         label="Empresa"
         hint=""
         lazy-rules
@@ -36,7 +36,7 @@
       <q-icon name="" />
       <q-input
         filled
-        v-model="name"
+        v-model="charge"
         label="Cargo"
         hint=""
         lazy-rules
@@ -45,7 +45,7 @@
       <q-icon name="email" />
       <q-input
         filled
-        v-model="name"
+        v-model="email"
         label="E-mail"
         hint=""
         lazy-rules
@@ -54,8 +54,18 @@
       <q-icon name="phone" />
       <q-input
         filled
-        v-model="name"
+        v-model="phone"
         label="Telefone"
+        mask="(##) ##### - ####"
+        hint=""
+        lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Please type something']"
+      />
+      <q-icon name="warning" />
+      <q-input
+        filled
+        v-model="observation"
+        label="Observações"
         hint=""
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please type something']"
@@ -89,6 +99,7 @@ export default {
       email: null,
       charge: null,
       phone: null,
+      observation: null,
       
 
       accept: false
@@ -117,7 +128,12 @@ export default {
 
     onReset () {
       this.name = null
-      this.age = null
+      this.surname = null
+      this.company = null
+      this.email = null
+      this.charge = null
+      this.phone = null
+      this.observation = null
       this.accept = false
     }
   }
