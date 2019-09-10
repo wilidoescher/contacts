@@ -53,7 +53,10 @@ module.exports = function (ctx) {
         'QTd',
         'QForm',
         'QToggle',
-        'QInput'
+        'QInput',
+        'QPageSticky',
+        'QDialog',
+        'QCard'
       ],
 
       directives: [

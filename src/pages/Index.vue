@@ -15,14 +15,23 @@
       <q-page-container>
         <q-page padding>
           <p v-for="n in 15" :key="n"></p>
-          <q-page-sticky position="bottom-right" :offset="[18, 18]">
+          <q-page-sticky position="bottom-right" :offset="[18, 440]">
             <div class="q-pa-md q-gutter-sm">
-              <q-btn fab icon="add"  color="primary" @click="caminhoForm" />
+              <q-item clickable @click.native="caminhoForm">
+                <q-btn fab icon="add"  color="primary" />
+              </q-item>
             </div>
           </q-page-sticky>
         </q-page>
       </q-page-container>
     </q-layout>
+     
+    <q-dialog ref="dialog" @hide="onDialogHide">
+      <q-card class="q-dialog-plugin">
+        
+      </q-card>
+    </q-dialog>
+
   </div>
 </template>
 
@@ -32,6 +41,7 @@
 <script>
 import axios from 'axios'
 import qs from 'qs'
+import form from './form'
 
 export default {
   name: 'Contatos',
@@ -68,6 +78,32 @@ export default {
     })
   },
   methods: {
+    openDialog () {
+      this.$q.dialog({
+        component: Form,
+        parent: this, 
+        text: 'something'
+      }).onOk(() => {
+        console.log('OK')
+      }).onCancel(() => {
+        console.log('Cancel')
+      }).onDismiss(() => {
+        console.log('Called on OK or Cancel')
+      })
+    },
+    showDialog () {
+      this.$q.dialog({
+        title: 'Alert<em>!</em>',
+        message: '<em>I can</em> <span class="text-red">use</span> <strong>HTML</strong>',
+        html: true
+      }).onOk(() => {
+        console.log('OK')
+      }).onCancel(() => {
+        console.log('Cancel')
+      }).onDismiss(() => {
+        console.log('I am triggered on both OK and Cancel')
+      })
+    },
     alert () {
       this.$q.dialog({
         title: 'Alert',
@@ -104,7 +140,7 @@ export default {
         message: 'What is your name?',
         prompt: {
           model: '',
-          type: 'text' // optional
+          type: 'text'
         },
         cancel: true,
         persistent: true
@@ -118,10 +154,27 @@ export default {
     },
 
     caminhoForm() {
-      axios({
-        method: 'get',
-        url: 'form.vue'
-      }) 
+      this.$q.dialog({
+        component: form,
+        parent: this, 
+        text: 'something',
+      }).onOk(() => {
+        console.log('OK')
+      }).onCancel(() => {
+        console.log('Cancel')
+      }).onDismiss(() => {
+        console.log('Called on OK or Cancel')
+      })
+    },
+    show () {
+      this.$refs.dialog.show()
+    },
+
+    hide () {
+      this.$refs.dialog.hide()
+    },
+    onDialogHide () {
+      this.$emit('hide')
     }
   }
 }
