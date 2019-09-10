@@ -91,7 +91,7 @@ import { Dialog } from 'quasar'
 
 export default {
   name: 'Formulario',
-  data () {
+  data() {
     return {
       name: null,
       surname: null,
