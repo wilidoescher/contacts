@@ -57,7 +57,9 @@ module.exports = function (ctx) {
         'QPageSticky',
         'QDialog',
         'QCard',
-        'QBtn'
+        'QBtn',
+        'QPopupEdit',
+        'QSpace'
       ],
 
       directives: [
