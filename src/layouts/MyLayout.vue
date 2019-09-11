@@ -8,7 +8,7 @@
       content-class="bg-grey-"
     >
       <q-list>
-        <q-item clickable @click.native="$router.push('/form')">
+        <q-item clickable @click.native="caminhoForm">
           <q-item-section avatar>
             <q-icon name="person" />
           </q-item-section>

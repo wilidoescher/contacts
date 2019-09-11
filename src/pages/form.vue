@@ -1,98 +1,92 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card class="q-dialog-plugin">
+    <q-card class="q-dialog-plugin" style="height: 800px">
       <div class="q-pa-md" style="max-width: 400px">
         <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-          <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
-            <q-input
-              filled
-              v-model="name"
-              label="Nome"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            >
-              <template v-slot:prepend>
-                <q-icon name="person" />
-              </template>
-            </q-input>
+          <q-input
+            filled
+            v-model="name"
+            label="Nome"
+            hint
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+          >
+            <template v-slot:prepend>
+              <q-icon name="person" />
+            </template>
+          </q-input>
 
-            <q-input
-              filled
-              v-model="surname"
-              label="Sobrenome"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            />
+          <q-input
+            filled
+            v-model="surname"
+            label="Sobrenome"
+            hint
+            lazy-rules
+          />
 
-            <q-input
-              filled
-              v-model="company"
-              label="Empresa"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            >
-              <template v-slot:prepend>
-                <q-icon name="house" />
-              </template>
-            </q-input>
+          <q-input
+            filled
+            v-model="company"
+            label="Empresa"
+            hint
+            lazy-rules
+          >
+            <template v-slot:prepend>
+              <q-icon name="house" />
+            </template>
+          </q-input>
 
-            <q-input
-              filled
-              v-model="charge"
-              label="Cargo"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            />
+          <q-input
+            filled
+            v-model="charge"
+            label="Cargo"
+            hint
+            lazy-rules
+          />
 
-            <q-input
-              filled
-              v-model="email"
-              label="E-mail"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            >
-              <template v-slot:prepend>
-                <q-icon name="email" />
-              </template>
-            </q-input>
+          <q-input
+            filled
+            v-model="email"
+            label="E-mail"
+            hint
+            lazy-rules
+          >
+            <template v-slot:prepend>
+              <q-icon name="email" />
+            </template>
+          </q-input>
 
-            <q-input
-              filled
-              v-model="phone"
-              label="Telefone"
-              mask="(##) ##### - ####"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            >
-              <template v-slot:prepend>
-                <q-icon name="phone" />
-              </template>
-            </q-input>
+          <q-input
+            filled
+            v-model="phone"
+            label="Telefone"
+            mask="(##) ##### - ####"
+            hint
+            lazy-rules
+            :rules="[ val => val && val.length > 0 || 'Please type something']"
+          >
+            <template v-slot:prepend>
+              <q-icon name="phone" />
+            </template>
+          </q-input>
 
-            <q-input
-              filled
-              v-model="observation"
-              label="Observações"
-              hint
-              lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something']"
-            >
-              <template v-slot:prepend>
-                <q-icon name="warning" />
-              </template>
-            </q-input>
+          <q-input
+            filled
+            v-model="observation"
+            label="Observações"
+            hint
+            lazy-rules
+          >
+            <template v-slot:prepend>
+              <q-icon name="warning" />
+            </template>
+          </q-input>
 
-            <div>
-              <q-btn label="Submit" type="submit" color="primary" />
-              <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-            </div>
-          </q-form>
+          <div align="right">
+            <q-btn flat label="Cancelar" color="primary" style="right: 105px" v-close-popup />
+            <q-btn label="Limpar" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-btn label="Salvar" type="submit" color="primary" v-close-popup />
+          </div>
         </q-form>
       </div>
     </q-card>

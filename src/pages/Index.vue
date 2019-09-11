@@ -31,7 +31,6 @@
         
       </q-card>
     </q-dialog>
-
   </div>
 </template>
 
@@ -71,99 +70,20 @@ export default {
     }
   },
   created() {
-    const vm = this
-    axios.get('http://localhost:3000/contatos')
-    .then(function (response) {
-      vm.data = response.data
-    })
+    this.gridRefresh()
   },
   methods: {
-    openDialog () {
-      this.$q.dialog({
-        component: Form,
-        parent: this, 
-        text: 'something'
-      }).onOk(() => {
-        console.log('OK')
-      }).onCancel(() => {
-        console.log('Cancel')
-      }).onDismiss(() => {
-        console.log('Called on OK or Cancel')
-      })
-    },
-    showDialog () {
-      this.$q.dialog({
-        title: 'Alert<em>!</em>',
-        message: '<em>I can</em> <span class="text-red">use</span> <strong>HTML</strong>',
-        html: true
-      }).onOk(() => {
-        console.log('OK')
-      }).onCancel(() => {
-        console.log('Cancel')
-      }).onDismiss(() => {
-        console.log('I am triggered on both OK and Cancel')
-      })
-    },
-    alert () {
-      this.$q.dialog({
-        title: 'Alert',
-        message: 'Some message'
-      }).onOk(() => {
-        console.log('OK')
-      }).onCancel(() => {
-        console.log('Cancel')
-      }).onDismiss(() => {
-        console.log('I am triggered on both OK and Cancel')
-      })
-    },
-
-    confirm () {
-      this.$q.dialog({
-        title: 'Confirm',
-        message: 'Would you like to turn on the wifi?',
-        cancel: true,
-        persistent: true
-      }).onOk(() => {
-        console.log('>>>> OK')
-      }).onOk(() => {
-        console.log('>>>> second OK catcher')
-      }).onCancel(() => {
-        console.log('>>>> Cancel')
-      }).onDismiss(() => {
-        console.log('I am triggered on both OK and Cancel')
-      })
-    },
-
-    prompt () {
-      this.$q.dialog({
-        title: 'Prompt',
-        message: 'What is your name?',
-        prompt: {
-          model: '',
-          type: 'text'
-        },
-        cancel: true,
-        persistent: true
-      }).onOk(data => {
-        console.log('>>>> OK, received', data)
-      }).onCancel(() => {
-        console.log('>>>> Cancel')
-      }).onDismiss(() => {
-        console.log('I am triggered on both OK and Cancel')
-      })
-    },
-
     caminhoForm() {
       this.$q.dialog({
         component: form,
         parent: this, 
         text: 'something',
       }).onOk(() => {
-        console.log('OK')
+
       }).onCancel(() => {
-        console.log('Cancel')
+
       }).onDismiss(() => {
-        console.log('Called on OK or Cancel')
+        this.gridRefresh()
       })
     },
     show () {
@@ -175,6 +95,13 @@ export default {
     },
     onDialogHide () {
       this.$emit('hide')
+    },
+    gridRefresh () {
+      const vm = this
+      axios.get('http://localhost:3000/contatos')
+      .then(function (response) {
+        vm.data = response.data
+    })
     }
   }
 }
