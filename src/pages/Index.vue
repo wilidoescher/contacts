@@ -105,10 +105,10 @@ export default {
         }
       ],
       data: []
-    };
+    }
   },
   created() {
-    this.gridRefresh();
+    this.gridRefresh()
   },
   methods: {
     caminhoForm() {
@@ -121,52 +121,50 @@ export default {
         .onOk(() => {})
         .onCancel(() => {})
         .onDismiss(() => {
-          this.gridRefresh();
-        });
+          this.gridRefresh()
+        })
     },
     show() {
-      this.$refs.dialog.show();
+      this.$refs.dialog.show()
     },
 
     hide() {
-      this.$refs.dialog.hide();
+      this.$refs.dialog.hide()
     },
     onDialogHide() {
-      this.$emit("hide");
+      this.$emit("hide")
     },
     gridRefresh() {
-      const vm = this;
+      const vm = this
       axios.get("http://localhost:3000/contatos").then(function(response) {
-        vm.data = response.data;
-      });
+        vm.data = response.data
+      })
     },
     gridDelete() {
       axios
-        .delete("id")
+        .delete("http://localhost:3000/contatos")
+        
         .then(function(response) {
           // handle success
-          console.log(response);
+          console.log(response)
         })
         .catch(function(error) {
           // handle error
-          console.log(error);
+          console.log(error)
         })
         .finally(function() {
           // always executed
-        });
+        })
     },
 
     removeRow() {
-      this.loading = true;
-      setTimeout(() => {
-        const index = Math.floor(Math.random() * this.data.length);
-        this.data = [
-          ...this.data.slice(0, index),
-          ...this.data.slice(index + 1)
-        ];
-        this.loading = false;
-      }, 500);
+      this.loading = true
+      for (let select = 0; select < array.length; index++) {
+        const element = array[select]
+        console.log(array[select])
+        
+      }
     }
   }
-};
+}
 </script>
