@@ -35,7 +35,7 @@
                 color="primary"
                 :disable="loading"
                 label="Remover"
-                @click="removeRow"
+                @click="removeRow()"
               />
               <q-space />
               <q-input borderless dense debounce="300" color="primary" v-model="filter">
@@ -158,11 +158,10 @@ export default {
     },
 
     removeRow() {
+      const vm = this
       this.loading = true
-      for (let select = 0; select < array.length; index++) {
-        const element = array[select]
-        console.log(array[select])
-        
+      for (let index = 0; index < vm.selected.length; index++) {
+        console.log(vm.selected[index])
       }
     }
   }
