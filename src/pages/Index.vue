@@ -26,7 +26,7 @@
                 <q-td colspan="100%">Contatos</q-td>
               </q-tr>
             </template>
-            
+
             <template v-slot:top>
               <q-btn
                 class="on-right"
@@ -36,6 +36,15 @@
                 :disable="loading"
                 label="Remover"
                 @click="removeRow()"
+              />
+              <q-btn
+                class="on-right"
+                flat
+                dense
+                color="primary"
+                :disable="loading"
+                label="Editar"
+                @click="gridEdit()"
               />
               <q-space />
               <q-input borderless dense debounce="300" color="primary" v-model="filter">
@@ -140,29 +149,36 @@ export default {
         vm.data = response.data
       })
     },
-    gridDelete() {
-      axios
-        .delete("http://localhost:3000/contatos")
-        
-        .then(function(response) {
-          // handle success
-          console.log(response)
-        })
-        .catch(function(error) {
-          // handle error
-          console.log(error)
-        })
-        .finally(function() {
-          // always executed
-        })
-    },
-
     removeRow() {
       const vm = this
       this.loading = true
+
       for (let index = 0; index < vm.selected.length; index++) {
-        console.log(vm.selected[index])
+        axios
+          .delete("http://localhost:3000/contatos/" + vm.selected[index].id)
+
+          .then(function(response) {
+            // handle success
+            console.log(response)
+
+            //
+          })
+          .catch(function(error) {
+            // handle error
+            console.log(error)
+          })
+          .finally(function() {
+            // always executed
+          })
       }
+      this.gridRefresh()
+    },
+
+    gridEdit() {
+      const vm = this
+      axios.put("http://localhost:3000/contatos").then(function(response) {
+        vm.data = response.data
+      })
     }
   }
 }
