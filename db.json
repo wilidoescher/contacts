@@ -17,16 +17,6 @@
       "cargo": "ti",
       "email": "asd@asd.com",
       "fone": "987654321"
-    },
-    {
-      "nome": "qweqwe",
-      "sobrenome": null,
-      "empresa": null,
-      "cargo": null,
-      "email": null,
-      "fone": "(12) 41254 - ",
-      "observacoes": null,
-      "id": 4
     }
   ]
 }

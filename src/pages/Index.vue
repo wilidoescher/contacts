@@ -44,7 +44,7 @@
                 color="primary"
                 :disable="loading"
                 label="Editar"
-                @click="gridEdit()"
+                v-on:click="gridEdit"
               />
               <q-space />
               <q-input borderless dense debounce="300" color="primary" v-model="filter">
@@ -113,18 +113,27 @@ export default {
           sortable: true
         }
       ],
-      data: []
+      data: [],
+      contato: {}
     }
   },
   created() {
     this.gridRefresh()
   },
   methods: {
-    caminhoForm() {
+    caminhoForm(contatoParam) {
+
+      let contato = {}
+
+      if(contatoParam){
+        contato = contatoParam
+      }
+
       this.$q
         .dialog({
           component: form,
           parent: this,
+          contato: contato,
           text: "something"
         })
         .onOk(() => {})
@@ -154,6 +163,13 @@ export default {
       this.loading = true
 
       for (let index = 0; index < vm.selected.length; index++) {
+        this.$q.notify({
+          color: "red-8",
+          textColor: "white",
+          icon: "fas fa-exclamation-triangle",
+          message: "Excluido com sucesso!"
+        })
+
         axios
           .delete("http://localhost:3000/contatos/" + vm.selected[index].id)
 
@@ -173,12 +189,28 @@ export default {
       }
       this.gridRefresh()
     },
-
+    
     gridEdit() {
+
+      
       const vm = this
-      axios.put("http://localhost:3000/contatos").then(function(response) {
+
+      
+      if(vm.selected.length > 1){
+        this.$q.notify({
+          color: "red-8",
+          textColor: "white",
+          icon: "fas fa-exclamation-triangle",
+          message: "Não é possível editar mais de 1 contato!"
+        })
+
+      } if(vm.selected.length == 1) {
+        this.caminhoForm(vm.selected[0])
+        
+      }
+      /*axios.get("http://localhost:3000/contatos/" + id).then(function(response) {
         vm.data = response.data
-      })
+      })*/
     }
   }
 }

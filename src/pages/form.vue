@@ -87,6 +87,7 @@
             <q-btn label="Limpar" type="reset" color="primary" flat class="q-ml-sm" />
             <q-btn label="Salvar" type="submit" color="primary" v-close-popup />
           </div>
+          {{contato}}
         </q-form>
       </div>
     </q-card>
@@ -116,9 +117,27 @@ export default {
       accept: false
     }
   },
+
+  watch: {
+      nome(newValue) {
+        this.updateUser()
+    }
+  },
+
+  computed: {
+    nome() {
+      return this.name + ' ' + this.phone
+    }
+  },
+
   created() {},
+props: ['contato'],
 
   methods: {
+    updateUser () {
+      console.log('Usuário atualizado')
+    },
+
     onSubmit() {
       if (this.accept !== true) {
         this.$q.notify({
