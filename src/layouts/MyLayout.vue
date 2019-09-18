@@ -7,7 +7,7 @@
       bordered
       content-class="bg-grey-"
     >
-      <q-list>
+      <!--q-list>
         <q-item clickable @click.native="caminhoForm">
           <q-item-section avatar>
             <q-icon name="person" />
@@ -16,7 +16,7 @@
             <q-item-label>Formulário</q-item-label>
           </q-item-section>
         </q-item>
-      </q-list>
+      </q-list-->
     </q-drawer>
 
     <q-page-container>

@@ -87,7 +87,6 @@
             <q-btn label="Limpar" type="reset" color="primary" flat class="q-ml-sm" />
             <q-btn label="Salvar" type="submit" color="primary" v-close-popup />
           </div>
-          {{contato}}
         </q-form>
       </div>
     </q-card>
@@ -106,6 +105,7 @@ export default {
   name: "Formulario",
   data() {
     return {
+      id: null,
       name: null,
       surname: null,
       company: null,
@@ -118,26 +118,30 @@ export default {
     }
   },
 
-  watch: {
-      nome(newValue) {
-        this.updateUser()
+ watch: {
+   contato: {
+      immediate: true,
+      handler (val, oldVal) {
+        if (val) {
+          this.id = val.id
+          this.name = val.nome
+          this.surname = val.sobrenome
+          this.company = val.empresa
+          this.email = val.email
+          this.charge = val.cargo
+          this.phone = val.fone
+          this.observation = val.observacoes
+         
+        }
+      }
     }
   },
 
-  computed: {
-    nome() {
-      return this.name + ' ' + this.phone
-    }
-  },
 
   created() {},
 props: ['contato'],
 
   methods: {
-    updateUser () {
-      console.log('Usuário atualizado')
-    },
-
     onSubmit() {
       if (this.accept !== true) {
         this.$q.notify({
@@ -146,6 +150,27 @@ props: ['contato'],
           icon: "fas fa-exclamation-triangle",
           message: "Salvo!"
         })
+
+        if(this.id){
+           axios
+          .put("http://localhost:3000/contatos/"+ this.id, {
+            nome: this.name,
+            sobrenome: this.surname,
+            empresa: this.company,
+            cargo: this.charge,
+            email: this.email,
+            fone: this.phone,
+            observacoes: this.observation
+          })
+          .then(function(response) {
+            console.log(response)
+          })
+          .catch(function(error) {
+            console.log(error)
+          })
+        } else {
+
+        
         axios
           .post("http://localhost:3000/contatos", {
             nome: this.name,
@@ -162,6 +187,7 @@ props: ['contato'],
           .catch(function(error) {
             console.log(error)
           })
+        }
       } else {
         this.$q.notify({
           color: "green-4",

@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-layout view="lhh LpR lff" container style="height: 500px" class="shadow-5 rounded-borders">
+    <q-layout view="lhh LpR lff" container style="height: 550px" class="shadow-5 rounded-borders">
       <q-header reveal class="bg-blue-10">
         <q-toolbar>
           <q-btn flat round dense icon="menu" />
@@ -44,7 +44,7 @@
                 color="primary"
                 :disable="loading"
                 label="Editar"
-                v-on:click="gridEdit"
+                @click="gridEdit"
               />
               <q-space />
               <q-input borderless dense debounce="300" color="primary" v-model="filter">
@@ -60,7 +60,7 @@
       <q-page-container>
         <q-page padding>
           <p v-for="n in 15" :key="n"></p>
-          <q-page-sticky position="bottom-right" :offset="[18, 18]">
+          <q-page-sticky position="bottom-right" :offset="[18, 150]">
             <div class="q-pa-md q-gutter-sm">
               <q-item clickable @click.native="caminhoForm">
                 <q-btn fab icon="add" color="primary" />
@@ -104,11 +104,29 @@ export default {
           sortable: true
         },
         {
+          name: "surname",
+          required: true,
+          label: "Sobrenome",
+          align: "left",
+          field: row => row.sobrenome,
+          format: val => `${val}`,
+          sortable: true
+        },
+        {
           numero: "fone",
           required: true,
           label: "Telefone",
-          align: "right",
+          align: "left",
           field: row => row.fone,
+          format: val => `${val}`,
+          sortable: true
+        },
+        {
+          name: "email",
+          required: true,
+          label: "E-mail",
+          align: "left",
+          field: row => row.email,
           format: val => `${val}`,
           sortable: true
         }
@@ -158,7 +176,7 @@ export default {
         vm.data = response.data
       })
     },
-    removeRow() {
+    async removeRow() {
       const vm = this
       this.loading = true
 
@@ -170,11 +188,11 @@ export default {
           message: "Excluido com sucesso!"
         })
 
-        axios
+        await axios
           .delete("http://localhost:3000/contatos/" + vm.selected[index].id)
 
           .then(function(response) {
-            // handle success
+            this.gridRefresh()
             console.log(response)
 
             //
@@ -187,7 +205,8 @@ export default {
             // always executed
           })
       }
-      this.gridRefresh()
+      this.loading = false
+      await this.gridRefresh()
     },
     
     gridEdit() {
@@ -208,9 +227,7 @@ export default {
         this.caminhoForm(vm.selected[0])
         
       }
-      /*axios.get("http://localhost:3000/contatos/" + id).then(function(response) {
-        vm.data = response.data
-      })*/
+      this.gridRefresh()
     }
   }
 }
