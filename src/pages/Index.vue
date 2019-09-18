@@ -166,12 +166,14 @@ export default {
 
     hide() {
       this.$refs.dialog.hide()
+      this.gridRefresh()
     },
     onDialogHide() {
       this.$emit("hide")
     },
     gridRefresh() {
       const vm = this
+      this.selected = []
       axios.get("http://localhost:3000/contatos").then(function(response) {
         vm.data = response.data
       })

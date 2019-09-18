@@ -139,7 +139,7 @@ export default {
 
 
   created() {},
-props: ['contato'],
+  props: ['contato'],
 
   methods: {
     onSubmit() {
@@ -153,24 +153,23 @@ props: ['contato'],
 
         if(this.id){
            axios
-          .put("http://localhost:3000/contatos/"+ this.id, {
-            nome: this.name,
-            sobrenome: this.surname,
-            empresa: this.company,
-            cargo: this.charge,
-            email: this.email,
-            fone: this.phone,
-            observacoes: this.observation
-          })
-          .then(function(response) {
-            console.log(response)
-          })
-          .catch(function(error) {
-            console.log(error)
-          })
+            .put("http://localhost:3000/contatos/"+ this.id, {
+              nome: this.name,
+              sobrenome: this.surname,
+              empresa: this.company,
+              cargo: this.charge,
+              email: this.email,
+              fone: this.phone,
+              observacoes: this.observation
+            })
+            .then(function(response) {
+              console.log(response)
+            })
+            .catch(function(error) {
+              console.log(error)
+            })
         } else {
 
-        
         axios
           .post("http://localhost:3000/contatos", {
             nome: this.name,
@@ -188,13 +187,6 @@ props: ['contato'],
             console.log(error)
           })
         }
-      } else {
-        this.$q.notify({
-          color: "green-4",
-          textColor: "white",
-          icon: "fas fa-check-circle",
-          message: "Submitted"
-        })
       }
     },
 
@@ -207,6 +199,7 @@ props: ['contato'],
       this.phone = null
       this.observation = null
       this.accept = false
+      console.log('aheu')
     },
     show() {
       this.$refs.dialog.show()
